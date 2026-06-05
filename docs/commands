@@ -1,0 +1,293 @@
+
+                               COMMANDS
+                               ========
+
+There are a lot of commands and I haven't got the willpower to write detailed
+descriptions of all of them so you'll just have to try them out yourself
+and play with the example code.
+   There are 2 types of commands - interactive only and interactive/runtime
+commands. Interactive only commands cannot be used in a program.
+
+Interactive only
+----------------
+
+RUN
+  Runs the program
+
+CLEAR
+  Deletes all variables.
+
+NEW
+  Deletes all variables and the current program.
+
+DELETE <line number from> [TO <line number to>]
+  Deletes the given program lines.
+  
+RENUM <start line number>
+  This renumbers the program starting at the given start line number. It also
+  uses this number as the line increment value.
+
+LOAD <filename>
+  Loads the given program into memory. Note than it does not automatically
+  add .BAS onto the end.
+
+SAVE <filename>
+  Saves the current program out to the given file. As with LOAD it does not
+  automatically add .BAS onto the end of the program name. 
+
+
+Runtime
+-------
+
+REM
+  Used for comments. 
+
+LIST
+  Lists the program. Normally it will indent loops and IF/FI unless the
+  INDENT 0 command is used. This command will page if PAGING is on (which
+  is the default). 
+
+INDENT <number of chars>
+  This sets the number of space characters to put in front of something when
+  indenting it. If you set it to zero no indenting will happen. The default
+  is 5 chars since this happens to look nice with cascading ELSE IF blocks.
+
+END
+  Causes the program to stop.
+
+EXIT <code>
+  Causes the intepreter process to exit with the given numeric code. 
+
+DIM <array>(<size>)[,<array2>(<size>)[,....]]
+  Dimension numeric or string arrays.
+
+LET <var> = <value>
+  This command is only included for the sake of completeness and does not
+  actually need to be used since "<var> = <value>" can be used instead.
+
+PRINT,WRITE [#<stream>],<data>,<more data>
+  These commands both write to the given stream or stdout if no stream is
+  given. The only difference is that PRINT automatically puts a newline at the
+  end. A shortcut for the PRINT commands is "?".
+
+GOTO <line number>
+  The program will jump to the given line number if it exists. If not then
+  an error is returned. 
+
+GOSUB <line number>
+  This makes the program jump to the given line number as a subroutine. So
+  that when RETURN is called the program returns to the command immediately
+  following the GOSUB (even if that command was on the same line).
+
+  eg: 10 GOSUB 20: print "END": end
+      20 print "SUB": return
+
+RETURN 
+  Returns from a subroutine as explained above. 
+
+WHILE <expression>
+WEND
+  This loop type loops until the expression is false.
+
+DO
+UNTIL <expression>
+  This loop type loops until the expression is true.
+
+FOR <var> = <from value> TO <to value> [STEP <num>]
+NEXT
+  This loop type set the variable to the from value then on each subsequent
+  loop increments by 1 (or the optional step value if given).
+     Previously the step value was automaticaly calculated if not given so the 
+  loop would always run (eg: FOR f = 10 to 1: NEXT - would run) but I've
+  changed it to more conventional behaviour in that the loop will NOT run
+  if end value is less than the start value and no stepping is given (or
+  is positive) or the end value is more than the start value and stepping is 
+  negative. However in these cases the variable will be set to the start value 
+  before the programs jumps to the command following NEXT.
+     Note than unlike a lot of other BASICs there is no variable name in the
+  NEXT command because IMO its not required and adds complexity to the 
+  intepreter for no advantage.
+
+IF <expression> THEN <do something> FI
+IF <expression> THEN <do something> ELSE <do something else> FI
+  This differs from most old style line basics in that it allows multiple
+  statements in an IF which requires the FI statement.
+
+  eg: IF abc > 3 THEN
+         print "YES"
+         abc = 3
+      FI
+
+CHOOSE <expression>
+  This is the head for the CHOOSE - CHOSEN block. The expression can return
+  either a string or number but the case arguments must match the expression
+  type in CHOOSE. These blocks can be nested.
+
+  eg: 10 INPUT a
+      20 CHOOSE a
+      30    CASE 1: print 1: goto 60
+      40    CASE 2: print 2: goto 60
+      50    DEFAULT: print 999
+      60 CHOSEN
+
+CASE <expression>[,<expression>...]
+   Used in CHOOSE - CHOSEN block. The expression type must match that of
+   the CHOOSE. As in C the program will "fall through" to the next CASE
+   statement if there is one since this is more useful (IMO , others may
+   have other views) plus its easier to implement. If you wish to jump out
+   of the CHOOSE - CHOSEN block after a CASE just use GOTO.
+
+DEFAULT
+   Optional in CHOOSE - CHOSEN block. The program will come here if it can't
+   find a match CASE value.
+
+CHOSEN
+   Terminals a CHOOSE block.
+
+DATA <data>[,<data>,<expression>,<data>,....]
+RESTORE <line number>
+READ <var1>[,<var2>[,...]]
+  DATA stores data or expressions which are then read by READ. The restore
+  set the line number from which to start READ reading from.
+
+  eg: 10 DATA 123,"hello",a+1,"cruel",a+5
+      20 DATA "wor" & a$,b+20,"there"
+      30 RESTORE 10
+      40 a=1: b=2: a$ = "ld"
+      50 FOR i=1 TO 4: READ c,d$: PRINT c,",",d$: NEXT
+   
+PAUSE <milliseconds>
+  Pause for the given number of milliseconds.
+
+INPUT [#<stream>],<var>[,<var>...]
+  This reads data off the given stream (stdin if not given) and into the
+  variable(s). Reading for each variable is complete once a newline is 
+  reached. Upon reaching EOF then input will return without setting the
+  variable and the EOF() function will now return 1. However , if you try
+  and read from the stream again an error will be returned.
+
+CINPUT [#<stream>],<length>,<var>
+  This does the same as above except it reads in a single character into
+  the variable (or a single digit if not a string variable). This doesn't do
+  any processing on the keys read in so this is useful for programs 
+  requiring immediate keyboard interation such as games especially when
+  coupled with the HASDATA() function.
+
+OPEN <filename> TO READ/WRITE/APPEND/READWRITE AS #<stream>[,<permissions>]
+  This opens the file and attaches it to the given stream. This can then
+  be read and written to using INPUT and PRINT/WRITE. The default permissions
+  when creating the file are 0644 (depending on your umask) unless you pass
+  in the optional permissions argument. Obviously if you are simply accessing
+  a pre-existing file these have no effect.
+
+OPENDIR <dirname> AS #<stream>
+  This opens a directory and allows the list of objects inside to be read
+  using the INPUT command. Each INPUT will return the name of an object in
+  the directory. The stream is closed as notmal using CLOSE. Note that you
+  cannot use CINPUT on a stream opened using this command.
+
+CLOSE #<stream>
+  Closes an open stream.
+
+SEEK #<stream>,<bytes>
+SEEKSTART #<stream>,<bytes>
+  SEEK moves the current pointer in the stream backwards or forwards from
+  the current position by the given number of bytes whereas SEEKSTART moves
+  the pointer from the start of the stream. Note that with streams opened
+  with OPENDIR only SEEKSTART may be used and only with a value of zero which
+  simply rewinds it to the start. This is due to the hopeless implementation
+  of the POSIX seekdir() function which has to use specific values returned
+  by telldir() for a given location meaning for every location we'd
+  have to store in memory the values returned by telldir().
+
+ON ERROR GOTO <line>
+ON ERROR GOSUB <line>
+ON ERROR BREAK
+ON ERROR CONTINUE
+  These commands determine what happens during an error. BREAK is the
+  default and the program will stop. CONTINUE means the error is ignored
+  and execution just continues. If is line are set then on an error the
+  program jumps to the given line and last_error can be used to determine the
+  error. Beware that recursion (GOSUB) or an infinite loop (GOTO) can occur if
+  an error occurs in the place jumped to. These do not need to be reset after
+  an error, they're permanent.
+
+CLS [#<stream>]
+  Clears the screen or writes the ANSI codes to whatever stream you give.
+
+PEN <pen number>
+  This sets the pen (foreground) colour. The number of pens available is
+  defined by the num_pens system variable. Note than the ANSI control codes
+  used in PRINT/WRITE to do the colours will be written out to files if
+  PRINT/WRITE is used with a stream.
+
+PAPER <paper number>
+  This sets the paper (background) colour. The number of papers available is
+  defined by the num_papers system variable. 
+
+STYLE <style number>
+  This sets the style. The number of styles is defined by the num_styles 
+  system variable. Not all styles work on all terminals.
+
+LOCATE [#<stream>],<x>,<y>
+  This locates the cursor at the given screen x and y position. If x or y
+  is offscreen then is is rounded up or down to the nearest valid screen
+  position. If you give a stream it writes the ANSI code to the given stream.
+  If its a file you can cat the file on the unix command line and see 
+  animation.
+
+SCROLL [#<stream>],<lines>
+  This scrolls the terminal up or down the given number of lines. This doesn't
+  work on all terminals (eg: Linux console). If the stream is given it writes
+  the ANSI code to this. Scrolling is not supported by the Linux console.
+
+SRAND <seed>
+  Sets the seed for random numbers.
+
+ECHO ON/OFF
+  This turns keyboard echoing to the terminal on or off.
+
+CURSOR ON/OFF
+  This turns the terminal cursor on or off. This doesn't work properly on 
+  the BSD console.
+
+REMOVE <filename>
+  This removes the directory or file (if possible).
+
+RENAME <from filename>,<to filename>
+  This renames the first filename to the second.
+
+MKDIR <dirname>[,<permissions>]
+  This creates a directory with the default permissions of 0755 unless you
+  specify the file permissions option. Note however that the permissions
+  are modified by your umask.
+  eg: mkdir "tmp",644
+
+CHMOD <filename>,<permissions>
+  This allows you to change the permissions on a file or directory. The
+  permissions are in octal format only (though you do not need a leading 
+  zero). Unlike MKDIR these permissions are NOT modified by your umask.
+  eg: chmod "wibble",5644
+
+CD <path>
+  This changes the current working directory.
+
+DIR [<path>]
+  This is an interactive command that prints out a directory listing.
+
+BREAK ON/OFF
+  If OFF then ^C will NOT stop the program. In fact there will be no way to stop
+  the program interactively other than by killing the interpreter. Complemented
+  by the -nobreak command line option.
+
+PAGING ON/OFF
+  This will switch paging in LIST on or off. To quit from the list when
+  paging just press 'Q'.
+
+SORT <array>
+  This command will sort an array of numbers or strings into ascending order. 
+  If you want descending values simply read the resulting sorted array from 
+  the end backwards. If the array has dimensions greater than 1 then the sort
+  affects minor indexes before major ones.
+  eg: for DIM a(2,3) the sort will go 1,1 -> 1,2 -> 1,3 -> 2,1 -> 2,2 -> 2,3
+ 

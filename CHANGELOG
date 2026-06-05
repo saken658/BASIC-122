@@ -1,0 +1,60 @@
+
+                                CHANGELOG
+                                =========
+0.1.0 - March 2006
+------------------
+Initial alpha release
+
+0.9.0 - April 2006
+------------------
+First beta release. Lots of additions and changes from 0.1.0
+
+1.0.0 - April 2006
+------------------
+- Implemented multidimensional arrays (previously only 1D)
+- Changed ENDIF to FI (I decided ENDIF was too long winded)
+- Added CURSOR, (standalone) BREAK & INDENT commands
+- Added MAX(), MIN(), MAX$(), MIN$(), TOSTR$(), WAITDATA(), UPPER$(), LOWER$()
+  functions
+- MID$(), LEFT$(), RIGHT$() now accept zero length
+- Added argc and argv$() system variables
+- Added file permissions argument to OPEN command
+- Added -nobreak command line option 
+- Removed -noindent command line option (it was fairly pointless)
+- SIGQUIT now handled
+- Internal changes
+
+1.1.0 - May 2006
+----------------
+- Added PAGING command
+- Added REVERSE$() function
+
+1.2.0 - June 2006
+-----------------
+- Added non (BASIC) standard CHOOSE/CHOSEN structure which has the same logic
+  as switch() in C. CHOOSE sounds nicer to me and more intuitive than calling
+  it SWITCH.
+- Changed the operation of the FOR loop - stepping always defaults to 1 and
+  loop will not now run if stepping does not match loop direction implied by
+  start and end values.
+- Added SORT command which sorts numeric and string 1D arrays
+- Added MATCH(), MEAN(), GMEAN(), MEDIAN() functions
+- Added ARMAX(), ARMIN(), ARMEAN(), ARGMEAN(), ARMEDIAN() functions
+- Added ARMAX$(), ARMIN$()
+- Added SWAPCASE$()
+- Added ABS(), FLOOR(), CEIL()
+- Added ISUPPER(), ISLOWER(), ISALPHA(), ISALNUM(), ISDIGIT(), ISBLANK(),
+        ISPRINT(), ISPUNCT()
+
+1.2.1 - June 2006
+-----------------
+- Mods for Solaris
+- Fixed minor bug in isNumeric() function - it thought "." was a valid float.
+
+1.2.2 - July 2006
+-----------------
+- Added GETENV$() function which returns the values of enviroment variables.
+  There is no corresponding setenv yet as it would serve no purpose since
+  BASIC cannot yet spawn child processes.
+- Added ENVEXISTS()
+- Other minor code updates.

@@ -1,0 +1,14 @@
+   10 GOSUB 40
+   20 PRINT "done"
+   30 GOTO 10
+   40 PRINT "sub1"
+   50 GOSUB 70
+   60 RETURN
+   70 PRINT "sub2"
+   80 GOSUB 100
+   90 RETURN
+  100 PRINT "sub3"
+  110 GOSUB 130
+  120 RETURN
+  130 PRINT "sub4"
+  140 RETURN

@@ -1,0 +1,39 @@
+                               README
+                               ======
+
+*** This is free software with ABSOLUTELY NO WARRANTY ***
+
+I thought about GPLing this software but to be honest I want a bit more
+control over what happens to it. I'll probably agree to most things with
+respect to the code but please ask first!
+
+COMPILING:
+This software has only been tested on Linux, FreeBSD and Solaris (using gcc).
+The odds are it won't compile or run properly on other versions of Unix though
+other versions of *BSD should be ok.
+
+Cd to "src" and then:
+
+Linux/BSD: Just type "make"
+Solaris  : Uncomment DEFS in the makefile then type "make"
+
+Once compiled just type "./basic" to run the interpreter.
+
+Documentation is in DOCS/ and examples BASIC programs are in progs/
+
+To load an example program (eg bounce.bas) either type 
+-run "../progs/bounce.bas" on the command line or enter 
+load "../progs/bounce.bas" then "run" inside the interpreter.
+
+NOTES:
+The cursor on/off function doesn't work properly on BSD console
+screens. You make see part of the ANSI command code printed out as
+plain text.
+
+The scroll command doesn't work on Linux consoles.
+
+
+Any questions, comments, suggestions, Nigerian financial opportunities,
+general death threats etc, then email me at: boltar@ogham.demon.co.uk
+
+Neil Robertson

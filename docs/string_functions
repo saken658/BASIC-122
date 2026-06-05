@@ -1,0 +1,103 @@
+
+                           STRING FUNCTIONS
+                           ================
+
+There are 2 main types of functions - those which return a numeric value
+and those which return a string value. This documents the string value
+return functions.
+
+CHR$(<num>)
+  Return the ascii character with the given numeric value. If num is < 0 or
+  > 255 then an out of range error is returned.
+
+MID$(<string>,<start pos>,<length>)
+  This returns a portion of the given string starting at the start position
+  and with the given length. 
+
+LEFT$(<string>,<length>)
+  This is the same as MID$() except that the start position is hard coded
+  to be 1.
+
+RIGHT$(<string>,<length>)
+  This returns given length of the string starting from the right of the
+  string.
+
+FORMAT$(<format string>,<num>)
+  This converts a number into a string using the format given. Try the
+  examples below.
+  eg: print format$("###,###,###.###",123456.789)
+      print format$("XXX,XXX,XXX.XXX",123456.789)
+
+TOSTR$(<num>)
+  This converts a number into a string without you needing to supply a 
+  formatting string.
+
+PAD$(<string>,<num>)
+  This returns the given string repeated the number of times given.
+
+WORD$(<string>,<pos>)
+  This returns the word at the given position in the string. As with WORDCNT()
+  a word is defined as a group of characters bounded by whitespace or the ends
+  of the string.
+
+ERROR$(<error num>)
+  Returns the string error message for the given error number.
+
+DATE$(<time>)
+  Returns the date string for the given time. Eg: print date$(time())
+
+STAT$(<path>)
+LSTAT$(<path>)
+  These return information on objects in the filesystem. They only differ in
+  how they treat soft links - STAT returns information on the file pointed to
+  by the link, LSTAT returns information on the link itself.
+  The return format of these functions is as follows:
+
+  <type> <permissions> <owner> <group> <size> <last access> <last mod> \
+         <last status change> <number of hard links>
+
+  eg: >print stat$(current_dir$)
+      DIR 0755 neil users 704 1144751572 1144751668 1144751668 5
+      >print stat$("mylink")
+      FILE 1432 neil users 20 1144751571 1144665225 1144748710 1
+      >print lstat$("mylink")
+      LINK 0777 neil users 6 1144751891 1144751885 1144751885 1
+      >print lstat$("/dev/tty0")
+      CHAR 0660 root root 0 1142011644 1142011644 1142670699 1
+
+  The file types returned are the following:
+      FILE   - normal file
+      DIR    - directory
+      LINK   - soft link
+      FIFO   - Fifo
+      BLOCK  - Block device
+      CHAR   - Character device
+      SOCKET - Unix socket
+
+MAX$(<string>,<string>[,<string>...])
+MIN$(<string>,<string>[,<string>...])
+  These do the same as the above except for strings.
+
+  eg: >print max$("d" & "ef",left$("hello",2),right$("wibble",2))
+      le
+
+ARMAX$(<string array>)
+ARMIN$(<string array>)
+  These return the max and min of value of the given array.
+
+UPPER$(<string>)
+LOWER$(<string>)
+  These convert the given string to upper and lower case respectively.
+
+REVERSE$(<string>)
+  This will reverse the given string. Personally I can't see much use for it
+  but lots of other BASICs have it so I put it in anyway.
+
+SWAPCASE$(<string>)
+  This swaps the cases of the letters in the string. Not sure if its much
+  use but I saw it in Python and it was easy to implement so I put it in
+  here.
+
+GETENV$(<env var name>)
+  Returns the value of the enviroment variable passed in. If the enviroment
+  variable doesn't exist then empty string is returned.

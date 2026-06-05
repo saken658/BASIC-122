@@ -1,0 +1,214 @@
+
+                              FUNCTIONS
+                              =========
+
+There are 2 main types of functions - those which return a numeric value
+and those which return a string value. Subdivided further into those
+which take numeric or string arguments. However , for this document I
+shall split them into return value types.
+
+Numeric return
+--------------
+SQRT(<num>)
+  Returns the square root of a number. The same result could be achieved by
+  doing <num>^0.5.
+
+ROUND(<num>)
+  This rounds the number up or down to the nearest integer value.
+
+SIN(<num>)
+COS(<num>)
+TAN(<num>)
+  Return the sine,cosine and tangent of the argument given in degrees 
+  (NOT radians!).
+
+ASIN(<num>)
+ACOS(<num>)
+ATAN(<num>)
+  Return the value in degrees of the arcsine, arcosine and arctan of the
+  given values.
+
+LOG(<num>)
+LOG10(<num>)
+  Return the natural log and the base10 log respectively.
+
+HYPOT(<num1>,<num2>)
+  Returns the hypotenuse of the 2 triangle sides given.
+
+ISNUM(<string>)
+  Returns 1 if the string is a valid number else 0.
+
+EOF(#<stream>)
+  Returns 1 if we're at the end of the given stream else 0.
+
+HASDATA(#<stream>)
+  Returns 1 if there is data waiting on the stream to be read. This is really
+  meant to be used on stdin (#1) if using the CINPUT command. It doesn't 
+  work properly with file and directory streams (the POSIX select()
+  function returns data to read flag even if EOF is reached) so use EOF()
+  instead for these.
+
+WAITDATA(#<stream>[,<millisecond timeout>])
+  This waits indefinately on a stream (unless the timeout is given) for data
+  to arrive. It returns 1 if data is available or 0 if a timeout or error has
+  occured.
+
+SEARCH(<search string>,<searched for string>[,<start pos>])
+  Searches for the searched for string starting at the optional start position
+  (1 if not given) in the search string. If found it returns the position else
+  it returns 0 (string positions start at 1).
+
+LENGTH(<string>)
+  Returns the length of the string.
+
+WORDCNT(<string>)
+  Returns a count of the number of words in the string. Words are defined as
+  a group of characters bounded by whitespace (or the ends of the string).
+
+VAL(<string>)
+  Returns the numeric value of a string. If the string is not a valid number
+  then an error is returned.
+
+ASC(<string>[,<start pos>])
+  Returns the asci value of the first character in the string starting at
+  the start position or 1 if this is not supplied.
+
+RAND()
+  Returns a random number between 0 and 1.
+
+TIME()
+  Returns the number of seconds and microseconds since the unix epoch (1 jan
+  1970). The microseconds are to the right of the decimal point.
+
+FACT(<number>)
+  Returns the factorial of a number. This works with floating point values too. 
+  eg: >print fact(4.2)
+      35.481600
+
+MATCH(<string>,<pattern>)
+  This returns 1 if the string matches the pattern , else 0. The pattern is
+  a while card pattern (NOT a regular expression) and it uses the '*' and '?'
+  operators. I did it this way because I can't stand regular expressions and
+  for the simple matching that will probably be done in BASIC wildcard 
+  patterns are fine.
+  eg: print match("hello","h?llo")
+      print match("this is a test","t*is?a t*")
+
+String return
+-------------
+
+CHR$(<num>)
+  Return the ascii character with the given numeric value. If num is < 0 or
+  > 255 then an out of range error is returned.
+
+MID$(<string>,<start pos>,<length>)
+  This returns a portion of the given string starting at the start position
+  and with the given length. 
+
+LEFT$(<string>,<length>)
+  This is the same as MID$() except that the start position is hard coded
+  to be 1.
+
+RIGHT$(<string>,<length>)
+  This returns given length of the string starting from the right of the
+  string.
+
+FORMAT$(<format string>,<num>)
+  This converts a number into a string using the format given. Try the
+  examples below.
+  eg: print format$("###,###,###.###",123456.789)
+      print format$("XXX,XXX,XXX.XXX",123456.789)
+
+TOSTR$(<num>)
+  This converts a number into a string without you needing to supply a 
+  formatting string.
+
+PAD$(<string>,<num>)
+  This returns the given string repeated the number of times given.
+
+WORD$(<string>,<pos>)
+  This returns the word at the given position in the string. As with WORDCNT()
+  a word is defined as a group of characters bounded by whitespace or the ends
+  of the string.
+
+ERROR$(<error num>)
+  Returns the string error message for the given error number.
+
+DATE$(<time>)
+  Returns the date string for the given time. Eg: print date$(time())
+
+STAT$(<path>)
+LSTAT$(<path>)
+  These return information on objects in the filesystem. They only differ in
+  how they treat soft links - STAT returns information on the file pointed to
+  by the link, LSTAT returns information on the link itself.
+  The return format of these functions is as follows:
+
+  <type> <permissions> <owner> <group> <size> <last access> <last mod> \
+         <last status change> <number of hard links>
+
+  eg: >print stat$(current_dir$)
+      DIR 0755 neil users 704 1144751572 1144751668 1144751668 5
+      >print stat$("mylink")
+      FILE 1432 neil users 20 1144751571 1144665225 1144748710 1
+      >print lstat$("mylink")
+      LINK 0777 neil users 6 1144751891 1144751885 1144751885 1
+      >print lstat$("/dev/tty0")
+      CHAR 0660 root root 0 1142011644 1142011644 1142670699 1
+
+  The file types returned are the following:
+      FILE   - normal file
+      DIR    - directory
+      LINK   - soft link
+      FIFO   - Fifo
+      BLOCK  - Block device
+      CHAR   - Character device
+      SOCKET - Unix socket
+
+MAX(<num>,<num>[,<num>...])
+MIN(<num>,<num>[,<num>...])
+  These return the MAX or MIN of a list of numeric values. There must be at
+  least 2 values passed in.
+  eg: print max(1,3,2)
+
+MAX$(<string>,<string>[,<string>...])
+MIN$(<string>,<string>[,<string>...])
+  These do the same as the above except for strings.
+
+  eg: >print max$("d" & "ef",left$("hello",2),right$("wibble",2))
+      le
+
+MEAN(<num>,<num>[,<num>...])
+  This returns the arithmetic mean (average) of the list of numbers.
+
+GMEAN(<num>,<num>[,<num>...])
+  This returns the geometric mean of the numbers which is Nth root of the 
+  product of the values where N is the number of values:
+     Eg: for values a,b & c the geometric mean = (a * b * c) ^ (1/3).
+  The geometric mean is always less than the arithmetic mean.
+  Note: If the product of the values is negative a result cannot be given as
+  you cannot take a root of a negative number. Check online sources for more 
+  info. 
+
+MEDIAN(<num>,<num>[,<num>...])
+  This returns the median of the list of numbers.
+
+ARMAX(<numeric array>)
+ARMIN(<numeric array>)
+ARMEAN(<numeric array>)
+ARGMEAN(<numeric array>)
+ARMEDIAN(<numeric array>)
+  These do the same as the MAX, MIN, MEAN, GMEAN and MEDIAN functions except 
+  they take a numeric array as input instead of a list.
+
+ARMAX$(<string array>)
+ARMIN$(<string array>)
+  These return the max and min of value of the given array.
+
+UPPER$(<string>)
+LOWER$(<string>)
+  These convert the given string to upper and lower case respectively.
+
+REVERSE$(<string>)
+  This will reverse the given string. Personally I can't see much use for it
+  but lots of other BASICs have it so I put it in anyway.

@@ -1,0 +1,28 @@
+
+                             SYSTEM VARIABLES
+                             ================
+
+There are a number of built in system variables that are read only. They
+are the following:
+
+argv$(argc)  - Command line arguments following "--"
+version$     - Interpreter version
+build_date$  - Build date of the binary
+current_dir$ - Current working directory
+username$    - Unix user name
+usergroup$   - Group of user
+
+argc       - Number of command line arguments following "--"
+last_error - Number of the last error (can be used with error$())
+num_errors - Total number of errors 
+num_pens   - Total number of pens (text colours)
+num_papers - Total number of papers (background colours)
+num_styles - Total number of text styles
+
+screen_width  - Width of the screen/terminal. If the width cannot be determined
+                (eg with serial terminals) then it is set to 0.
+screen_height - Height of the screen/terminal. Also set to 0 if cannot be
+                determined.
+
+pi              - Value of PI.
+degs_per_radian - Number of degrees in a radian.

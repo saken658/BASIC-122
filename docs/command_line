@@ -1,0 +1,27 @@
+
+                              COMMAND LINE
+                              ============
+
+There are only a few options on the command line:
+
+-run <filename>
+This loads the file and runs it. When the program stops or ^C is pressed the
+the interpreter exits also - it does not drop into the interactivea prompt.
+
+-nobreak
+This stops ^C from stopping the program without explicitely using putting
+BREAK OFF in the program.
+
+-vers
+Prints the interpreter version and exits.
+
+-- <arguments>
+Everything following "--" is treated as an argv argument for the 
+interpreter so don't put any other options after this.
+
+eg: basic -run wibble.bas -- hello -vers
+
+    will set "hello" and "-vers" as argv$(1) and argv$(2) respectively 
+    when wibble.bas is run.
+
+

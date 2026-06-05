@@ -1,0 +1,157 @@
+
+                            NUMERIC FUNCTIONS
+                            =================
+
+There are 2 main types of functions - those which return a numeric value
+and those which return a string value. This documents those that return a
+numeric value (though they can still take strings as parameters)
+
+SQRT(<num>)
+  Returns the square root of a number. The same result could be achieved by
+  doing <num>^0.5.
+
+ROUND(<num>)
+  This rounds the number up or down to the nearest integer value.
+
+FLOOR(<num>)
+  This returns the integer value of the number. Eg: floor(3.9) = 3
+
+CEIL(<num>)
+  This returns the integer value + 1 (unless the value is an integer itself
+  in which case it remains the same). Eg: ceil(3.2) = 4, ceil(3) = 3
+
+SIN(<num>)
+COS(<num>)
+TAN(<num>)
+  Return the sine,cosine and tangent of the argument given in degrees 
+  (NOT radians!).
+
+ASIN(<num>)
+ACOS(<num>)
+ATAN(<num>)
+  Return the value in degrees of the arcsine, arcosine and arctan of the
+  given values.
+
+LOG(<num>)
+LOG10(<num>)
+  Return the natural log and the base10 log respectively.
+
+HYPOT(<num1>,<num2>)
+  Returns the hypotenuse of the 2 triangle sides given.
+
+ISNUM(<string>)
+  Returns 1 if the string is a valid number else 0.
+
+EOF(#<stream>)
+  Returns 1 if we're at the end of the given stream else 0.
+
+HASDATA(#<stream>)
+  Returns 1 if there is data waiting on the stream to be read. This is really
+  meant to be used on stdin (#1) if using the CINPUT command. It doesn't 
+  work properly with file and directory streams (the POSIX select()
+  function returns data to read flag even if EOF is reached) so use EOF()
+  instead for these.
+
+WAITDATA(#<stream>[,<millisecond timeout>])
+  This waits indefinately on a stream (unless the timeout is given) for data
+  to arrive. It returns 1 if data is available or 0 if a timeout or error has
+  occured.
+
+SEARCH(<search string>,<searched for string>[,<start pos>])
+  Searches for the searched for string starting at the optional start position
+  (1 if not given) in the search string. If found it returns the position else
+  it returns 0 (string positions start at 1).
+
+LENGTH(<string>)
+  Returns the length of the string.
+
+WORDCNT(<string>)
+  Returns a count of the number of words in the string. Words are defined as
+  a group of characters bounded by whitespace (or the ends of the string).
+
+VAL(<string>)
+  Returns the numeric value of a string. If the string is not a valid number
+  then an error is returned.
+
+ASC(<string>[,<start pos>])
+  Returns the asci value of the first character in the string starting at
+  the start position or 1 if this is not supplied.
+
+RAND()
+  Returns a random number between 0 and 1.
+
+TIME()
+  Returns the number of seconds and microseconds since the unix epoch (1 jan
+  1970). The microseconds are to the right of the decimal point.
+
+FACT(<number>)
+  Returns the factorial of a number. This works with floating point values too. 
+  eg: >print fact(4.2)
+      35.481600
+
+MATCH(<string>,<pattern>)
+  This returns 1 if the string matches the pattern , else 0. The pattern is
+  a while card pattern (NOT a regular expression) and it uses the '*' and '?'
+  operators. I did it this way because I can't stand regular expressions and
+  for the simple matching that will probably be done in BASIC wildcard 
+  patterns are fine.
+  eg: print match("hello","h?llo")
+      print match("this is a test","t*is?a t*")
+
+MEAN(<num>,<num>[,<num>...])
+  This returns the arithmetic mean (average) of the list of numbers.
+
+GMEAN(<num>,<num>[,<num>...])
+  This returns the geometric mean of the numbers which is Nth root of the 
+  product of the values where N is the number of values:
+     Eg: for values a,b & c the geometric mean = (a * b * c) ^ (1/3).
+  The geometric mean is always less than the arithmetic mean.
+  Note: If the product of the values is negative a result cannot be given as
+  you cannot take a root of a negative number. Check online sources for more 
+  info. 
+
+MEDIAN(<num>,<num>[,<num>...])
+  This returns the median of the list of numbers.
+
+MAX(<num>,<num>[,<num>...])
+MIN(<num>,<num>[,<num>...])
+  These return the MAX or MIN of a list of numeric values. There must be at
+  least 2 values passed in.
+  eg: print max(1,3,2)
+
+ARMAX(<numeric array>)
+ARMIN(<numeric array>)
+ARMEAN(<numeric array>)
+ARGMEAN(<numeric array>)
+ARMEDIAN(<numeric array>)
+  These do the same as the MAX, MIN, MEAN, GMEAN and MEDIAN functions except 
+  they take a numeric array as input instead of a list.
+
+ISUPPER(<string>)
+ISLOWER(<string>)
+  These return 1 if a string is all upper or all lowercase.
+
+ISALPHA(<string>)
+  This returns 1 if the string is all alphabetic characters.
+
+ISALNUM(<string>)
+  This returns 1 if the string is alphanumeric.
+
+ISDIGIT(<string>)
+  This returns 1 if the string is digits. Note that this differs from the
+  ISNUM() function in that that function also checks for '-' and '.' in 
+  valid negative floating point numbers. This function purely checks for
+  the digits 0 to 9.
+
+ISBLANK(<string>)
+  This returns 1 if the string is whitespace. Note that it will
+  also return 1 for an empty string eg: print isblank("")  -> 1
+
+ISPRINT(<string>)
+  Returns 1 if string is printable characters.
+
+ISPUNCT(<string>)
+  Returns 1 if the string just contains punctuation characters.
+
+ENVEXISTS(<env variable name>)
+  Returns 1 if the enviroment variable exists, else 0.

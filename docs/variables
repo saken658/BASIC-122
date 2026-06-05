@@ -1,0 +1,29 @@
+
+                                VARIABLES
+                                =========
+
+As with most old fashioned line BASICs there are only 2 main types
+of variable: numeric and string. Numeric can take any floating point number
+and have a name such as "abc" whilst strings can take any string value and
+have any name except there must be a dollar sign on the end. Numeric and
+string variables with the same name except for the dollar sign are allowed.
+
+eg: a = 3
+    a$ = "hello"
+
+Arrays are permitted up to a maximum of 6 dimensions.
+
+eg:
+   10 DATA "hello","cruel","world"
+   20 RESTORE 10
+   30 DIM a(10),b$(3)
+   40 FOR f=1 TO 10: a(f)=f*2: NEXT
+   50 FOR f=1 TO 3: READ b$(f): NEXT
+ 
+   10 DIM screen(screen_width,screen_height)
+   20 FOR y=1 TO screen_height
+   30     FOR x=1 TO screen_width
+   40         screen(x,y)=0
+   50     NEXT
+   60 NEXT
+

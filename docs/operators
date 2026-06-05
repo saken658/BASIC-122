@@ -1,0 +1,60 @@
+
+                                 OPERATORS
+                                 =========
+
+Numeric
+-------
+Most of these are standard to all versions of BASIC except for the bitwise
+operators which a lot of BASICs don't support or use different operators.
+
+  +   plus
+  -   minus
+  *   multiply
+  /   divide
+  %   modulus
+  ^   power
+
+  &   bitwise AND
+  |   bitwise OR
+  !   bitwise XOR (! because ^ is BASIC standard for power)
+  <<  bitwise shift left
+  >>  bitwise shift right
+
+  =   equals
+  <   less than
+  >   greater than
+  >=  greater than or equals
+  <=  less than or equals
+  <>  not equal
+  
+  AND logical AND
+  OR  logical OR
+  XOR logical XOR
+
+  (   left bracket
+  )   right bracket
+
+eg: print (5 << 1) * 2 & 7
+
+String
+------
+The string comparison operators simply call the C lib strcmp function.
+
+  &   concatenate
+
+  =   equals
+  <   less than
+  >   greater than
+  >=  greater than or equals
+  <=  less than or equals
+  <>  not equal
+  
+  (   left bracket
+  )   right bracket
+
+eg: print "de" & "f" > "abc"
+
+You can also mix string and numeric operations as long as you use brackets.
+
+eg: result = ("def" > "abc") * 10
+

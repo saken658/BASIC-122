@@ -1,0 +1,11 @@
+
+Unfortunately due to a bad design decision on my part this interpreter
+can't handle binary data. Specifically it won't handle ASCII value zero
+properly because internally it uses the libc string routines which use this 
+value as a string terminator. This probably won't be a problem for most people
+but it does mean BASIC can't be used for certain applications.
+
+   I might attempt to fix this in a future release but it will be a lot of
+work removing all libc string functions and replacing them with alternatives
+so we'll have to see.
+
