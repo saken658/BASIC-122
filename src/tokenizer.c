@@ -46,6 +46,7 @@ void deleteToken(struct st_token *token);
 		case TYPE_SHIFT_LEFT: \
 		case TYPE_SHIFT_RIGHT: \
 		return ERR_SYNTAX; \
+		default: break; \
 		} 
 
 
@@ -127,6 +128,7 @@ for(s=str,in_rem=0,create_new_subline=0,cnt=0;;) {
 
 		case COM_REM:
 		in_rem = 1;
+		default: break;
 		}
 
 	if (prev_token) {
@@ -176,6 +178,7 @@ for(s=str,in_rem=0,create_new_subline=0,cnt=0;;) {
 				deleteToken(prev_token);
 				line->tokens[line->num_tokens-1] = token;
 				goto DONE;
+				default: break;
 				}
 			break;
 
@@ -183,8 +186,8 @@ for(s=str,in_rem=0,create_new_subline=0,cnt=0;;) {
 			case TYPE_STRFUNC:
 			/* Check function is always followed by '(' */
 			if (type != TYPE_LBRACKET) return ERR_SYNTAX;
-			}
-		addTokenToLine(line,token);
+			default: break;
+			}		addTokenToLine(line,token);
 		}
 	else addTokenToLine(line,token);
 
