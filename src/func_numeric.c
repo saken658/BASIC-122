@@ -846,6 +846,7 @@ switch(func) {
 	/* Can't do a root of a negative */
 	if (*result < 0) return ERR_OUT_OF_BOUNDS;
 	*result = pow(*result,1 / (double)var->size);
+	default: break;
 	}
 return OK;
 }
