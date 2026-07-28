@@ -860,7 +860,7 @@ enum en_command error_action;
 /*** Forward declarations for global functions ***/
 
 /* main.c */
-void init();
+void init(void);
 enum en_error loadProgram(char *filename);
 enum en_error runProgram(struct st_line *line);
 void doExit(int err);
@@ -872,7 +872,7 @@ void deleteToken(struct st_token *token);
 /* lines.c */
 void addProgramLine(struct st_bas_line *basline);
 void deleteProgramLine(struct st_bas_line *basline);
-struct st_bas_line *createBasicLine();
+struct st_bas_line *createBasicLine(void);
 void deleteBasicLine(struct st_bas_line *basline);
 struct st_line *createLine(struct st_bas_line *parent);
 void deleteLine(struct st_line *line);
@@ -961,7 +961,7 @@ enum en_error createVariable(
 	char *name,
 	enum en_type type, int *index, int depth, struct st_var **newvar);
 void deleteVariable(struct st_var *var);
-void deleteAllVariables();
+void deleteAllVariables(void);
 struct st_var *getVariable(char *name);
 enum en_error setVarValue(
 	char *name, int *index, int depth, double value, char *strval);
@@ -1137,22 +1137,22 @@ char setLoopEnd(
 	enum en_command start_com, enum en_command end_com);
 int isNumeric(char *str);
 void printError(enum en_error err, int line);
-void reset();
-void closeStreams();
+void reset(void);
+void closeStreams(void);
 enum en_error getStream(
 	struct st_line *line, int start, int *end, double *stream);
 enum en_error  setColours(int fd);
 void listProgram(FILE *fp, int start_line, int end_line);
 enum en_error fdWrite(int fd, char *str, int len);
 enum en_error calcPermission(double result, mode_t *perm);
-struct winsize *getWinSize();
+struct winsize *getWinSize(void);
 int wildmatch(char *str, char *pat);
 void numericSort(int num, double *data);
 
 
 /*** Command function array ***/
 #ifdef MAINFILE
-enum en_error (*comfunc[NUM_COMMANDS])() = {
+enum en_error (*comfunc[NUM_COMMANDS])(enum en_command, struct st_line *, int) = {
 	/* 0 */
 	&comPseudo1,
 	&comList,
@@ -1255,13 +1255,13 @@ enum en_error (*comfunc[NUM_COMMANDS])() = {
 	&comSort
 	};
 #else
-extern enum en_error (*comfunc[NUM_COMMANDS])();
+extern enum en_error (*comfunc[NUM_COMMANDS])(enum en_command, struct st_line *, int);
 #endif
 
 
 /*** Function function pointer array ***/
 #ifdef MAINFILE
-enum en_error (*numfuncptr[NUM_NUM_FUNCTIONS])() = {
+enum en_error (*numfuncptr[NUM_NUM_FUNCTIONS])(enum en_function, struct st_line *, int, int *, int, double *) = {
 	/* 0 */
 	&funcSqrt,
 	&funcRoundFloorCeil,
@@ -1329,7 +1329,7 @@ enum en_error (*numfuncptr[NUM_NUM_FUNCTIONS])() = {
 	&funcEnvExists
 	};
 
-enum en_error (*strfuncptr[NUM_STR_FUNCTIONS])() = {
+enum en_error (*strfuncptr[NUM_STR_FUNCTIONS])(enum en_function, struct st_line *, int, int *, int, char **) = {
 	/* 0 */
 	&funcChr,
 	&funcMidLeftRight,
@@ -1362,6 +1362,6 @@ enum en_error (*strfuncptr[NUM_STR_FUNCTIONS])() = {
 	&funcGetenv
 	};
 #else
-enum en_error (*numfuncptr[NUM_NUM_FUNCTIONS])();
-enum en_error (*strfuncptr[NUM_STR_FUNCTIONS])();
+extern enum en_error (*numfuncptr[NUM_NUM_FUNCTIONS])(enum en_function, struct st_line *, int, int *, int, double *);
+extern enum en_error (*strfuncptr[NUM_STR_FUNCTIONS])(enum en_function, struct st_line *, int, int *, int, char **);
 #endif
