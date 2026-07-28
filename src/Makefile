@@ -5,8 +5,8 @@
 
 #DEFS=-DSOLARIS
 
-OPTS=-ggdb -Wall -pedantic
-CC=gcc
+OPTS=-g -Wall -pedantic
+CC ?= cc
 FILTER=2>&1 | egrep -v "not handled in switch" | cat
 
 basic: \

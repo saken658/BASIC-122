@@ -12,10 +12,10 @@
 #define MAINFILE
 #include "basic.h"
 
-void startup();
+void startup(void);
 void parseCmdLine(int argc, char **argv);
-void runFileAndExit();
-void interactive();
+void runFileAndExit(void);
+void interactive(void);
 void sighandler(int sig);
 
 
@@ -38,7 +38,7 @@ return 0;
 
 
 /*** Do startup stuff ***/
-void startup()
+void startup(void)
 {
 struct termios tio;
 struct passwd *pwd;
@@ -79,7 +79,7 @@ signal(SIGQUIT,sighandler);
 
 
 /*** Initialise a few things ***/
-void init()
+void init(void)
 {
 int i;
 
@@ -193,7 +193,7 @@ doExit(1);
 
 
 /*** Run a program file given on the command line ***/
-void runFileAndExit()
+void runFileAndExit(void)
 {
 enum en_error err;
 
@@ -210,7 +210,7 @@ doExit(last_error);
 
 
 /*** Main loop of the interactive part of the interpreter ***/
-void interactive()
+void interactive(void)
 {
 struct st_bas_line *basline;
 struct st_line *line;

@@ -235,7 +235,7 @@ last_error = err;
 
 
 /*** Do a complete reset ***/
-void reset()
+void reset(void)
 {
 struct st_bas_line *basline,*next;
 
@@ -256,7 +256,7 @@ init();
 
 
 /*** Close an open streams and reset file pointers ***/
-void closeStreams()
+void closeStreams(void)
 {
 int i;
 
@@ -500,7 +500,7 @@ return OK;
 
 
 /*** Get terminal/window size ***/
-struct winsize *getWinSize()
+struct winsize *getWinSize(void)
 {
 static struct winsize ws;
 
