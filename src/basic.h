@@ -9,9 +9,7 @@
  ****************************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
-#ifndef SOLARIS
 #include <stdint.h>
-#endif
 #include <string.h>
 #include <strings.h>
 #include <unistd.h>
