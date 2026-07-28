@@ -102,6 +102,7 @@ switch(vartoken->type) {
 	if (result_type != TYPE_STRING) return ERR_INVALID_ARGUMENT;
 	err = setVarValue(line->tokens[start]->text,index,depth,0,strres);
 	FREE(strres);
+	default: break;
 	}
 return (end+1 >= line->num_tokens) ? err : ERR_SYNTAX;
 }

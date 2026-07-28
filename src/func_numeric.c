@@ -326,7 +326,7 @@ enum en_error funcHasWaitdata(
 struct timeval tv,*tvp;
 fd_set mask;
 enum en_error err;
-double stream,millisecs;
+double stream, millisecs = 0.0;
 int fd;
 
 if (start >= limit - 1) return ERR_MISSING_FUNC_ARGUMENT;

@@ -124,6 +124,7 @@ switch(var->type) {
 	case TYPE_ARR_STRVAR:
 	for(i=-0;i < var->size;++i) FREE(var->arr_str_value[i]);
 	FREE(var->arr_str_value);
+	default: break;
 	}
 }
 
@@ -296,6 +297,7 @@ switch(var->type) {
 	if (idx > var->size) return ERR_INDEX_OUT_OF_BOUNDS;
 	if (!idx) return ERR_VAR_IS_ARRAY;
 	*strval = (var->arr_str_value[idx-1] ? var->arr_str_value[idx-1] : "");
+	default: break;
 	}
 return OK;
 }
@@ -509,6 +511,7 @@ switch(var->type) {
 		var->arr_str_value[j] = strval;
 		}
 	return OK;
+	default: break;
 	}
 return ERR_VAR_NOT_ARRAY;
 }

@@ -434,6 +434,7 @@ for(;line;line = (goto_line_set ? goto_line : line->next)) {
 				goto_line = error_goto_line;
 				goto_line_set = 1;
 				goto CONT;
+				default: break;
 				}
 			}
 		return err;

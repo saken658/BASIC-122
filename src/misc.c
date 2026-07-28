@@ -357,6 +357,7 @@ for(basline=first_basline,linecnt=0;basline;basline=basline->next) {
 
 					case COM_CHOSEN:
 					if (indent > 1) indent -= 2;
+					default: break;
 					}
 
 				if (start && line == basline->first_line) {
@@ -378,6 +379,7 @@ for(basline=first_basline,linecnt=0;basline;basline=basline->next) {
 
 					case COM_CHOOSE:
 					indent += 2;
+					default: break;
 					}
 				}
 
