@@ -338,12 +338,7 @@ if ((err = getStream(line,start+1,end,&stream)) != OK) return err;
 if (!STREAM_IS_OPEN((int)stream)) return ERR_STREAM_NOT_OPEN;
 
 if (streams[(int)stream].type == STREAM_DIR)
-#ifdef SOLARIS
-	/* Lets hope this members name doesn't change! */
-	fd = streams[(int)stream].dfp->dd_fd;
-#else
 	fd = dirfd(streams[(int)stream].dfp);
-#endif
 else
 	fd = streams[(int)stream].fd;
 
