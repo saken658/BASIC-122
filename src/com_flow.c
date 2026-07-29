@@ -357,11 +357,13 @@ if (!line->goto_line) {
 						}	
 					default: break;
 					}
-			}
+				}
 			if (!line3) return ERR_MISSING_ELSE_FI;
 			goto DONE;
 			}
-		}	DONE:
+			default: break;
+		}
+	DONE:
 	if (!line2) return ERR_MISSING_ELSE_FI;
 	}
 

@@ -212,10 +212,9 @@ for(++start;start < line->num_tokens;start = end+1) {
 		case TYPE_STRVAR:
 		case TYPE_ARR_STRVAR:
 		err = setVarValue(line->tokens[start]->text,index,depth,0,input);
-			default: break;
-			}
-		if (err != OK) return err;
 		}
+	if (err != OK) return err;
+	}
 return OK;
 }
 
