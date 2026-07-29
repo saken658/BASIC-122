@@ -757,10 +757,10 @@ extern char *error[NUM_ERRORS];
 extern char *command[NUM_COMMANDS];
 extern char *numfunc[NUM_NUM_FUNCTIONS];
 extern char *strfunc[NUM_STR_FUNCTIONS];
-extern char *system_vars[NUM_SYSTEM_VARS];
-extern char *fgcols[NUM_FGCOLS];
-extern char *bgcols[NUM_BGCOLS];
-extern char *text_styles[NUM_STYLES];
+char *system_vars[NUM_SYSTEM_VARS];
+char *fgcols[NUM_FGCOLS];
+char *bgcols[NUM_BGCOLS];
+char *text_styles[NUM_STYLES];
 
 #endif
 

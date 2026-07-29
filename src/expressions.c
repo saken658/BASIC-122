@@ -300,7 +300,6 @@ switch(op) {
 	case TYPE_OR:
 	case TYPE_XOR:
 	return 5;
-	default: return 0;
 	}
 return 0;
 }

@@ -355,13 +355,11 @@ if (!line->goto_line) {
 						line3->paired = 1;
 						goto DONE;
 						}	
-					default: break;
 					}
 				}
 			if (!line3) return ERR_MISSING_ELSE_FI;
 			goto DONE;
 			}
-			default: break;
 		}
 	DONE:
 	if (!line2) return ERR_MISSING_ELSE_FI;
@@ -546,8 +544,8 @@ for(line2=line->next;line2;line2=line2->next) {
 				err = ERR_SYNTAX;  goto ERROR;
 				}
 			}
-		default: break;
-		}	}
+		}
+	}
 if (line2) {
 	END:
 	goto_line = line2->next;
