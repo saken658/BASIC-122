@@ -134,7 +134,7 @@ return err;
 enum en_error comInput(enum en_command com, struct st_line *line, int start)
 {
 struct dirent *ds;
-enum en_error err = OK;
+enum en_error err;
 double stream;
 char one,input[BUFFSIZE+1];
 int index[MAX_ARRAY_DEPTH];
