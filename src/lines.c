@@ -133,7 +133,7 @@ deleteBasicLine(basline);
 /*************************** BASIC LINE FUNCTIONS ***************************/
 
 /*** Create a BASIC line ***/
-struct st_bas_line *createBasicLine(void)
+struct st_bas_line *createBasicLine()
 {
 struct st_bas_line *basline;
 

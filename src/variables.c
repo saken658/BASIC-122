@@ -131,7 +131,7 @@ switch(var->type) {
 
 
 /*** Delete all variables ***/
-void deleteAllVariables(void)
+void deleteAllVariables()
 {
 struct st_var *var,*next;
 int i;
