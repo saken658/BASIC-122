@@ -826,7 +826,6 @@ struct st_stream {
 	} streams[NUM_STREAMS];
 
 /*** Other global variables ***/
-#ifdef MAINFILE
 struct termios stored_tio;
 struct st_bas_line *first_basline, *last_basline;
 struct st_line *gosub_stack[GOSUB_STACK_SIZE];
@@ -855,39 +854,6 @@ char *username;
 char *usergroup;
 enum en_error last_error;
 enum en_command error_action;
-#else
-extern struct termios stored_tio;
-extern struct st_bas_line *first_basline;
-extern struct st_bas_line *last_basline;
-extern struct st_line *gosub_stack[GOSUB_STACK_SIZE];
-extern struct st_line *goto_line;
-extern struct st_line *error_goto_line;
-extern struct st_line *data_line;
-extern struct st_var *varlist[256];
-extern int basic_argc;
-extern int gosub_stack_pos;
-extern int data_token_pos;
-extern int stored_errno;
-extern int pen;
-extern int paper;
-extern int style;
-extern char **basic_argv;
-extern char *run_filename;
-extern char stop_program;
-extern char program_running;
-extern char goto_line_set;
-extern char printed_break;
-extern char next_jump;
-extern char echo_on;
-extern char cursor_on;
-extern char break_on;
-extern char paging_on;
-extern char indent_chars;
-extern char *username;
-extern char *usergroup;
-extern enum en_error last_error;
-extern enum en_command error_action;
-#endif
 
 /*** Forward declarations for global functions ***/
 
